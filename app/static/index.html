@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A policy-grounded support workspace with approval-gated ticket creation."
+    />
+    <title>Relay — Support Operations</title>
+    <script>
+      if (window.location.protocol === "file:") {
+        window.location.replace("http://localhost:8000/");
+      }
+    </script>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg><use href="#icon-spark"></use></svg>
+          </span>
+          <span class="brand-copy">
+            <strong>Relay</strong>
+            <small>Support operations</small>
+          </span>
+        </div>
+
+        <nav class="primary-nav" aria-label="Workspace navigation">
+          <span class="nav-label">Workspace</span>
+          <button class="nav-item active" type="button" data-view="support">
+            <svg aria-hidden="true"><use href="#icon-message"></use></svg>
+            <span>Support inbox</span>
+          </button>
+          <button class="nav-item" type="button" data-view="evaluation">
+            <svg aria-hidden="true"><use href="#icon-chart"></use></svg>
+            <span>Evaluation</span>
+          </button>
+          <button class="nav-item" type="button" data-view="system">
+            <svg aria-hidden="true"><use href="#icon-layers"></use></svg>
+            <span>System</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="service-state" id="sidebar-status">
+            <span class="pulse-dot"></span>
+            <div>
+              <strong>Checking services</strong>
+              <small>PostgreSQL + Redis</small>
+            </div>
+          </div>
+          <a class="docs-link" href="/docs" target="_blank" rel="noreferrer">
+            <svg aria-hidden="true"><use href="#icon-code"></use></svg>
+            API documentation
+            <svg class="external-icon" aria-hidden="true"><use href="#icon-external"></use></svg>
+          </a>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <button class="menu-button" id="menu-button" type="button" aria-label="Open menu">
+            <svg aria-hidden="true"><use href="#icon-menu"></use></svg>
+          </button>
+          <div>
+            <p class="eyebrow">Support operations agent</p>
+            <h1 id="page-title">Support inbox</h1>
+          </div>
+          <div class="topbar-actions">
+            <span class="status-pill" id="topbar-status">
+              <span class="status-dot"></span>
+              Connecting
+            </span>
+            <div class="operator-avatar" title="Operations user">OP</div>
+          </div>
+        </header>
+
+        <section class="view active" id="support-view" data-view-panel="support">
+          <div class="view-intro">
+            <div>
+              <p class="section-kicker">Policy-grounded assistance</p>
+              <h2>Resolve questions with verified answers.</h2>
+              <p>Every response shows its source. Record changes stay behind your approval.</p>
+            </div>
+            <div class="intro-badge">
+              <svg aria-hidden="true"><use href="#icon-shield"></use></svg>
+              Human approval enabled
+            </div>
+          </div>
+
+          <div class="support-grid">
+            <section class="chat-card" aria-label="Support conversation">
+              <div class="chat-header">
+                <div class="agent-identity">
+                  <span class="agent-avatar">
+                    <svg aria-hidden="true"><use href="#icon-spark"></use></svg>
+                  </span>
+                  <div>
+                    <strong>Relay assistant</strong>
+                    <span><i></i> Policy knowledge connected</span>
+                  </div>
+                </div>
+                <button class="icon-button" id="clear-chat" type="button" title="Clear conversation">
+                  <svg aria-hidden="true"><use href="#icon-refresh"></use></svg>
+                </button>
+              </div>
+
+              <div class="chat-messages" id="chat-messages" aria-live="polite">
+                <article class="message assistant-message welcome-message">
+                  <div class="message-avatar">
+                    <svg aria-hidden="true"><use href="#icon-spark"></use></svg>
+                  </div>
+                  <div class="message-content">
+                    <div class="message-bubble">
+                      <p class="message-label">Relay assistant</p>
+                      <p>Hi! I can help with billing, account access, subscriptions, and privacy requests.</p>
+                      <p>If a ticket is needed, I’ll prepare it and wait for your approval before changing any records.</p>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <div class="suggestion-row" id="suggestion-row">
+                <button type="button" data-prompt="Can I get a refund for a purchase from last week?">
+                  Refund policy
+                </button>
+                <button type="button" data-prompt="My password reset link expired. What should I do?">
+                  Account access
+                </button>
+                <button type="button" data-prompt="I was charged twice. Please create a ticket for a human agent.">
+                  Escalate a charge
+                </button>
+              </div>
+
+              <form class="composer" id="message-form">
+                <div class="composer-field">
+                  <textarea
+                    id="message-input"
+                    rows="1"
+                    maxlength="2000"
+                    placeholder="Describe what you need help with…"
+                    aria-label="Support message"
+                  ></textarea>
+                  <button class="send-button" id="send-button" type="submit" aria-label="Send message">
+                    <svg aria-hidden="true"><use href="#icon-send"></use></svg>
+                  </button>
+                </div>
+                <p><span>Enter to send</span><span>Responses are grounded in current policy</span></p>
+              </form>
+            </section>
+
+            <aside class="context-column" aria-label="Customer context">
+              <section class="panel account-panel">
+                <div class="panel-heading">
+                  <div>
+                    <p class="panel-kicker">Customer context</p>
+                    <h3>Active account</h3>
+                  </div>
+                  <svg aria-hidden="true"><use href="#icon-user"></use></svg>
+                </div>
+                <label class="select-label" for="account-select">Demo account</label>
+                <select id="account-select" aria-label="Select demo account">
+                  <option>Loading accounts…</option>
+                </select>
+                <div class="account-summary" id="account-summary">
+                  <div class="skeleton account-avatar-skeleton"></div>
+                  <div>
+                    <span class="skeleton skeleton-line wide"></span>
+                    <span class="skeleton skeleton-line"></span>
+                  </div>
+                </div>
+              </section>
+
+              <section class="panel tickets-panel">
+                <div class="panel-heading compact">
+                  <div>
+                    <p class="panel-kicker">Activity</p>
+                    <h3>Recent tickets</h3>
+                  </div>
+                  <span class="count-badge" id="ticket-count">0</span>
+                </div>
+                <div class="ticket-list" id="ticket-list">
+                  <div class="empty-state small">
+                    <span><svg aria-hidden="true"><use href="#icon-ticket"></use></svg></span>
+                    <p>No tickets for this account yet.</p>
+                  </div>
+                </div>
+              </section>
+
+              <section class="safeguard-card">
+                <span class="safeguard-icon">
+                  <svg aria-hidden="true"><use href="#icon-lock"></use></svg>
+                </span>
+                <div>
+                  <strong>Safe by default</strong>
+                  <p>Account and policy tools are read-only. Only ticket creation can write data.</p>
+                </div>
+              </section>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view" id="evaluation-view" data-view-panel="evaluation">
+          <div class="view-intro">
+            <div>
+              <p class="section-kicker">Quality dashboard</p>
+              <h2>Measured on 100 support requests.</h2>
+              <p>A reproducible development set tracks answer quality, reliability, latency, and cost.</p>
+            </div>
+            <div class="run-stamp" id="run-stamp">Loading baseline…</div>
+          </div>
+
+          <div class="metric-grid">
+            <article class="metric-card accent-card">
+              <span class="metric-icon"><svg><use href="#icon-check"></use></svg></span>
+              <p>Task completion</p>
+              <strong id="completion-metric">—</strong>
+              <small>Correct state and policy source</small>
+            </article>
+            <article class="metric-card">
+              <span class="metric-icon"><svg><use href="#icon-quote"></use></svg></span>
+              <p>Citation correctness</p>
+              <strong id="citation-metric">—</strong>
+              <small>Expected source returned</small>
+            </article>
+            <article class="metric-card">
+              <span class="metric-icon"><svg><use href="#icon-tool"></use></svg></span>
+              <p>Tool failures</p>
+              <strong id="failure-metric">—</strong>
+              <small>Across all benchmark calls</small>
+            </article>
+            <article class="metric-card">
+              <span class="metric-icon"><svg><use href="#icon-clock"></use></svg></span>
+              <p>P95 latency</p>
+              <strong id="latency-metric">—</strong>
+              <small>End-to-end client latency</small>
+            </article>
+          </div>
+
+          <div class="evaluation-grid">
+            <section class="panel benchmark-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="panel-kicker">Evaluation coverage</p>
+                  <h3>Request mix</h3>
+                </div>
+                <span class="neutral-badge">100 labeled cases</span>
+              </div>
+              <div class="coverage-list">
+                <div class="coverage-row">
+                  <span>Billing & refunds</span><div><i style="width: 25%"></i></div><strong>25</strong>
+                </div>
+                <div class="coverage-row">
+                  <span>Account access</span><div><i style="width: 25%"></i></div><strong>25</strong>
+                </div>
+                <div class="coverage-row">
+                  <span>Subscriptions</span><div><i style="width: 25%"></i></div><strong>25</strong>
+                </div>
+                <div class="coverage-row">
+                  <span>Privacy requests</span><div><i style="width: 25%"></i></div><strong>25</strong>
+                </div>
+              </div>
+              <div class="coverage-note">
+                <svg aria-hidden="true"><use href="#icon-info"></use></svg>
+                20 cases require a human-approved escalation; the benchmark never approves them automatically.
+              </div>
+            </section>
+
+            <section class="panel latency-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="panel-kicker">Performance</p>
+                  <h3>Latency distribution</h3>
+                </div>
+                <span class="neutral-badge">Concurrency 10</span>
+              </div>
+              <div class="latency-display">
+                <div><span>Median</span><strong id="p50-metric">—</strong></div>
+                <div><span>Mean</span><strong id="mean-metric">—</strong></div>
+                <div><span>95th percentile</span><strong id="p95-detail-metric">—</strong></div>
+              </div>
+              <div class="cost-row">
+                <span><svg><use href="#icon-coins"></use></svg> Model cost per request</span>
+                <strong id="cost-metric">—</strong>
+              </div>
+              <p class="panel-footnote">The local composer is extractive and deterministic, so it does not require paid model calls.</p>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="system-view" data-view-panel="system">
+          <div class="view-intro">
+            <div>
+              <p class="section-kicker">System design</p>
+              <h2>Three tools. One controlled write path.</h2>
+              <p>The agent can read account and policy data freely. Creating a ticket always pauses for review.</p>
+            </div>
+            <span class="system-health-badge" id="system-health-badge">Checking dependencies…</span>
+          </div>
+
+          <section class="flow-panel">
+            <div class="flow-step request-step">
+              <span><svg><use href="#icon-message"></use></svg></span>
+              <div><small>Incoming</small><strong>Customer request</strong></div>
+            </div>
+            <svg class="flow-arrow"><use href="#icon-arrow"></use></svg>
+            <div class="flow-tools">
+              <article>
+                <span class="read-badge">Read</span>
+                <svg><use href="#icon-search"></use></svg>
+                <div><strong>Policy search</strong><small>Ranked passages + citations</small></div>
+              </article>
+              <article>
+                <span class="read-badge">Read</span>
+                <svg><use href="#icon-user"></use></svg>
+                <div><strong>Account lookup</strong><small>Plan and account status</small></div>
+              </article>
+              <article>
+                <span class="write-badge">Approval</span>
+                <svg><use href="#icon-ticket"></use></svg>
+                <div><strong>Create ticket</strong><small>Single-use action proposal</small></div>
+              </article>
+            </div>
+            <svg class="flow-arrow"><use href="#icon-arrow"></use></svg>
+            <div class="flow-step response-step">
+              <span><svg><use href="#icon-check"></use></svg></span>
+              <div><small>Outcome</small><strong>Grounded response</strong></div>
+            </div>
+          </section>
+
+          <div class="system-grid">
+            <section class="panel dependency-panel">
+              <div class="panel-heading"><div><p class="panel-kicker">Live services</p><h3>Dependencies</h3></div></div>
+              <div class="dependency-row">
+                <span class="dependency-icon postgres">PG</span>
+                <div><strong>PostgreSQL</strong><small>Accounts, policies, tickets</small></div>
+                <span class="dependency-status" id="postgres-status">Checking</span>
+              </div>
+              <div class="dependency-row">
+                <span class="dependency-icon redis">R</span>
+                <div><strong>Redis</strong><small>15-minute approval proposals</small></div>
+                <span class="dependency-status" id="redis-status">Checking</span>
+              </div>
+            </section>
+
+            <section class="panel control-panel">
+              <div class="panel-heading"><div><p class="panel-kicker">Mutation control</p><h3>Approval lifecycle</h3></div></div>
+              <ol class="timeline">
+                <li><span>1</span><div><strong>Propose</strong><small>Arguments are stored server-side in Redis.</small></div></li>
+                <li><span>2</span><div><strong>Review</strong><small>A person approves or rejects in the inbox.</small></div></li>
+                <li><span>3</span><div><strong>Consume once</strong><small>Redis GETDEL prevents approval replay.</small></div></li>
+              </ol>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast-region" id="toast-region" aria-live="polite"></div>
+    <div class="mobile-scrim" id="mobile-scrim"></div>
+
+    <svg class="svg-defs" aria-hidden="true">
+      <defs>
+        <symbol id="icon-spark" viewBox="0 0 24 24"><path d="M12 2l1.65 5.35L19 9l-5.35 1.65L12 16l-1.65-5.35L5 9l5.35-1.65L12 2Z"/><path d="M18.5 14l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9.9-2.6Z"/></symbol>
+        <symbol id="icon-message" viewBox="0 0 24 24"><path d="M5 18.5A8 8 0 1 1 8.2 21L3 22l2-3.5Z"/></symbol>
+        <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 19V9m6 10V5m6 14v-7m4 7H2"/></symbol>
+        <symbol id="icon-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></symbol>
+        <symbol id="icon-code" viewBox="0 0 24 24"><path d="m8 9-4 3 4 3m8-6 4 3-4 3m-2-9-4 12"/></symbol>
+        <symbol id="icon-external" viewBox="0 0 24 24"><path d="M14 5h5v5M12 12l7-7M19 13v6H5V5h6"/></symbol>
+        <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+        <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3 4.5 6v5c0 4.8 3.1 8.2 7.5 10 4.4-1.8 7.5-5.2 7.5-10V6L12 3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+        <symbol id="icon-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 8a7 7 0 0 1 11.5-1.5L20 9M4 15l2.4 2.5A7 7 0 0 0 18 16"/></symbol>
+        <symbol id="icon-send" viewBox="0 0 24 24"><path d="m21 3-7.5 18-3.8-7.2L3 10l18-7Z"/><path d="M9.7 13.8 21 3"/></symbol>
+        <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+        <symbol id="icon-ticket" viewBox="0 0 24 24"><path d="M4 5h16v4a3 3 0 0 0 0 6v4H4v-4a3 3 0 0 0 0-6V5Z"/><path d="M13 8h3m-3 4h3m-3 4h3"/></symbol>
+        <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+        <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+        <symbol id="icon-quote" viewBox="0 0 24 24"><path d="M10 11H5a5 5 0 0 1 5-5v10H5m14-5h-5a5 5 0 0 1 5-5v10h-5"/></symbol>
+        <symbol id="icon-tool" viewBox="0 0 24 24"><path d="M14 7a5 5 0 0 0-7-4l3 3-4 4-3-3a5 5 0 0 0 6 7l6 6 5-5-6-6V7Z"/></symbol>
+        <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+        <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.1"/></symbol>
+        <symbol id="icon-coins" viewBox="0 0 24 24"><ellipse cx="9" cy="6" rx="6" ry="3"/><path d="M3 6v4c0 1.7 2.7 3 6 3 .7 0 1.4-.1 2-.2M3 10v4c0 1.7 2.7 3 6 3h1"/><ellipse cx="16" cy="15" rx="5" ry="3"/><path d="M11 15v4c0 1.7 2.2 3 5 3s5-1.3 5-3v-4"/></symbol>
+        <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+        <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></symbol>
+      </defs>
+    </svg>
+  </body>
+</html>

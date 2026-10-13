@@ -1,0 +1,16 @@
+{
+  "run_at": "2026-10-13T14:09:54.774694+00:00",
+  "environment": "local Docker Compose, concurrency 10",
+  "requests": 100,
+  "task_completion_rate": 1.0,
+  "citation_correctness": 1.0,
+  "citation_precision": 1.0,
+  "tool_failures": 0,
+  "latency_ms": {
+    "mean": 66.5,
+    "p50": 38.36,
+    "p95": 255.98
+  },
+  "average_cost_per_request_usd": 0.0,
+  "errors": 0
+}

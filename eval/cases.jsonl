@@ -1,0 +1,100 @@
+{"id":"case_001","account_id":"acct_1001","message":"Can I get a refund for a purchase from last week?","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_002","account_id":"acct_1002","message":"How long does an approved refund take?","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_003","account_id":"acct_1003","message":"I was charged twice for the same invoice.","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_004","account_id":"acct_1001","message":"There is a card charge I do not recognize.","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_005","account_id":"acct_1002","message":"What is the refund window?","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_006","account_id":"acct_1003","message":"Can I get a refund for a purchase from last week?","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_007","account_id":"acct_1001","message":"How long does an approved refund take?","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_008","account_id":"acct_1002","message":"I was charged twice for the same invoice.","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_009","account_id":"acct_1003","message":"There is a card charge I do not recognize.","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_010","account_id":"acct_1001","message":"What is the refund window?","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_011","account_id":"acct_1002","message":"Can I get a refund for a purchase from last week?","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_012","account_id":"acct_1003","message":"How long does an approved refund take?","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_013","account_id":"acct_1001","message":"I was charged twice for the same invoice.","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_014","account_id":"acct_1002","message":"There is a card charge I do not recognize.","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_015","account_id":"acct_1003","message":"What is the refund window?","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_016","account_id":"acct_1001","message":"Can I get a refund for a purchase from last week?","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_017","account_id":"acct_1002","message":"How long does an approved refund take?","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_018","account_id":"acct_1003","message":"I was charged twice for the same invoice.","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_019","account_id":"acct_1001","message":"There is a card charge I do not recognize.","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_020","account_id":"acct_1002","message":"What is the refund window?","expected_citation":"refunds-and-charges","expected_state":"answered"}
+{"id":"case_021","account_id":"acct_1003","message":"Can I get a refund for a purchase from last week? Please create a ticket for a human agent.","expected_citation":"refunds-and-charges","expected_state":"awaiting_approval"}
+{"id":"case_022","account_id":"acct_1001","message":"How long does an approved refund take? Please create a ticket for a human agent.","expected_citation":"refunds-and-charges","expected_state":"awaiting_approval"}
+{"id":"case_023","account_id":"acct_1002","message":"I was charged twice for the same invoice. Please create a ticket for a human agent.","expected_citation":"refunds-and-charges","expected_state":"awaiting_approval"}
+{"id":"case_024","account_id":"acct_1003","message":"There is a card charge I do not recognize. Please create a ticket for a human agent.","expected_citation":"refunds-and-charges","expected_state":"awaiting_approval"}
+{"id":"case_025","account_id":"acct_1001","message":"What is the refund window? Please create a ticket for a human agent.","expected_citation":"refunds-and-charges","expected_state":"awaiting_approval"}
+{"id":"case_026","account_id":"acct_1002","message":"My password reset link expired.","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_027","account_id":"acct_1003","message":"How long am I locked out after failed login attempts?","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_028","account_id":"acct_1001","message":"Can support set a new password for me?","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_029","account_id":"acct_1002","message":"I cannot sign in to my account.","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_030","account_id":"acct_1003","message":"How long does a reset link work?","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_031","account_id":"acct_1001","message":"My password reset link expired.","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_032","account_id":"acct_1002","message":"How long am I locked out after failed login attempts?","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_033","account_id":"acct_1003","message":"Can support set a new password for me?","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_034","account_id":"acct_1001","message":"I cannot sign in to my account.","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_035","account_id":"acct_1002","message":"How long does a reset link work?","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_036","account_id":"acct_1003","message":"My password reset link expired.","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_037","account_id":"acct_1001","message":"How long am I locked out after failed login attempts?","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_038","account_id":"acct_1002","message":"Can support set a new password for me?","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_039","account_id":"acct_1003","message":"I cannot sign in to my account.","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_040","account_id":"acct_1001","message":"How long does a reset link work?","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_041","account_id":"acct_1002","message":"My password reset link expired.","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_042","account_id":"acct_1003","message":"How long am I locked out after failed login attempts?","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_043","account_id":"acct_1001","message":"Can support set a new password for me?","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_044","account_id":"acct_1002","message":"I cannot sign in to my account.","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_045","account_id":"acct_1003","message":"How long does a reset link work?","expected_citation":"password-and-account-access","expected_state":"answered"}
+{"id":"case_046","account_id":"acct_1001","message":"My password reset link expired. Please create a ticket for a human agent.","expected_citation":"password-and-account-access","expected_state":"awaiting_approval"}
+{"id":"case_047","account_id":"acct_1002","message":"How long am I locked out after failed login attempts? Please create a ticket for a human agent.","expected_citation":"password-and-account-access","expected_state":"awaiting_approval"}
+{"id":"case_048","account_id":"acct_1003","message":"Can support set a new password for me? Please create a ticket for a human agent.","expected_citation":"password-and-account-access","expected_state":"awaiting_approval"}
+{"id":"case_049","account_id":"acct_1001","message":"I cannot sign in to my account. Please create a ticket for a human agent.","expected_citation":"password-and-account-access","expected_state":"awaiting_approval"}
+{"id":"case_050","account_id":"acct_1002","message":"How long does a reset link work? Please create a ticket for a human agent.","expected_citation":"password-and-account-access","expected_state":"awaiting_approval"}
+{"id":"case_051","account_id":"acct_1003","message":"When does a plan downgrade take effect?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_052","account_id":"acct_1001","message":"What happens when I cancel my subscription?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_053","account_id":"acct_1002","message":"Are upgrades prorated?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_054","account_id":"acct_1003","message":"I want to change my plan at renewal.","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_055","account_id":"acct_1001","message":"Does cancellation end access immediately?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_056","account_id":"acct_1002","message":"When does a plan downgrade take effect?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_057","account_id":"acct_1003","message":"What happens when I cancel my subscription?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_058","account_id":"acct_1001","message":"Are upgrades prorated?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_059","account_id":"acct_1002","message":"I want to change my plan at renewal.","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_060","account_id":"acct_1003","message":"Does cancellation end access immediately?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_061","account_id":"acct_1001","message":"When does a plan downgrade take effect?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_062","account_id":"acct_1002","message":"What happens when I cancel my subscription?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_063","account_id":"acct_1003","message":"Are upgrades prorated?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_064","account_id":"acct_1001","message":"I want to change my plan at renewal.","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_065","account_id":"acct_1002","message":"Does cancellation end access immediately?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_066","account_id":"acct_1003","message":"When does a plan downgrade take effect?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_067","account_id":"acct_1001","message":"What happens when I cancel my subscription?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_068","account_id":"acct_1002","message":"Are upgrades prorated?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_069","account_id":"acct_1003","message":"I want to change my plan at renewal.","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_070","account_id":"acct_1001","message":"Does cancellation end access immediately?","expected_citation":"subscription-changes","expected_state":"answered"}
+{"id":"case_071","account_id":"acct_1002","message":"When does a plan downgrade take effect? Please create a ticket for a human agent.","expected_citation":"subscription-changes","expected_state":"awaiting_approval"}
+{"id":"case_072","account_id":"acct_1003","message":"What happens when I cancel my subscription? Please create a ticket for a human agent.","expected_citation":"subscription-changes","expected_state":"awaiting_approval"}
+{"id":"case_073","account_id":"acct_1001","message":"Are upgrades prorated? Please create a ticket for a human agent.","expected_citation":"subscription-changes","expected_state":"awaiting_approval"}
+{"id":"case_074","account_id":"acct_1002","message":"I want to change my plan at renewal. Please create a ticket for a human agent.","expected_citation":"subscription-changes","expected_state":"awaiting_approval"}
+{"id":"case_075","account_id":"acct_1003","message":"Does cancellation end access immediately? Please create a ticket for a human agent.","expected_citation":"subscription-changes","expected_state":"awaiting_approval"}
+{"id":"case_076","account_id":"acct_1001","message":"How long does a data export take?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_077","account_id":"acct_1002","message":"I want to delete my account data.","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_078","account_id":"acct_1003","message":"Why are billing records retained?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_079","account_id":"acct_1001","message":"What verification is needed for deletion?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_080","account_id":"acct_1002","message":"Can I export the data in my account?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_081","account_id":"acct_1003","message":"How long does a data export take?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_082","account_id":"acct_1001","message":"I want to delete my account data.","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_083","account_id":"acct_1002","message":"Why are billing records retained?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_084","account_id":"acct_1003","message":"What verification is needed for deletion?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_085","account_id":"acct_1001","message":"Can I export the data in my account?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_086","account_id":"acct_1002","message":"How long does a data export take?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_087","account_id":"acct_1003","message":"I want to delete my account data.","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_088","account_id":"acct_1001","message":"Why are billing records retained?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_089","account_id":"acct_1002","message":"What verification is needed for deletion?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_090","account_id":"acct_1003","message":"Can I export the data in my account?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_091","account_id":"acct_1001","message":"How long does a data export take?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_092","account_id":"acct_1002","message":"I want to delete my account data.","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_093","account_id":"acct_1003","message":"Why are billing records retained?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_094","account_id":"acct_1001","message":"What verification is needed for deletion?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_095","account_id":"acct_1002","message":"Can I export the data in my account?","expected_citation":"privacy-and-data-requests","expected_state":"answered"}
+{"id":"case_096","account_id":"acct_1003","message":"How long does a data export take? Please create a ticket for a human agent.","expected_citation":"privacy-and-data-requests","expected_state":"awaiting_approval"}
+{"id":"case_097","account_id":"acct_1001","message":"I want to delete my account data. Please create a ticket for a human agent.","expected_citation":"privacy-and-data-requests","expected_state":"awaiting_approval"}
+{"id":"case_098","account_id":"acct_1002","message":"Why are billing records retained? Please create a ticket for a human agent.","expected_citation":"privacy-and-data-requests","expected_state":"awaiting_approval"}
+{"id":"case_099","account_id":"acct_1003","message":"What verification is needed for deletion? Please create a ticket for a human agent.","expected_citation":"privacy-and-data-requests","expected_state":"awaiting_approval"}
+{"id":"case_100","account_id":"acct_1001","message":"Can I export the data in my account? Please create a ticket for a human agent.","expected_citation":"privacy-and-data-requests","expected_state":"awaiting_approval"}
