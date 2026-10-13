@@ -8,3 +8,4 @@ __pycache__/
 htmlcov/
 benchmark-results/
 .DS_Store
+.env.example
