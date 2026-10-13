@@ -1,89 +1,38 @@
-# Support Operations Agent
+The other screens are useful when presenting the project:
 
-A small support backend that answers policy questions, looks up account context, and proposes
-support tickets. Record changes require explicit approval.
+- **Evaluation** shows the saved benchmark results.
+- **System** shows the request path, the three tools, and the live PostgreSQL and Redis status.
+- **API documentation** opens Swagger for testing individual endpoints.
 
-The service exposes exactly three tools:
+## How a request is handled
 
-| Tool | Purpose | Writes data |
+1. `account_lookup` checks the customer account and returns the plan and account status.
+2. `policy_search` searches the policy table using PostgreSQL full-text search.
+3. The response is composed from the highest-ranked policy passage and includes its citation.
+4. If escalation is requested, `create_ticket` stores a proposed action in Redis instead of
+   creating the ticket immediately.
+5. Approval consumes the Redis entry and writes the ticket to PostgreSQL.
+
+The Redis entry expires after 15 minutes. It is consumed with `GETDEL`, so the same approval cannot
+be replayed to create duplicate tickets.
+
+## Tools
+
+| Tool | What it does | Writes data? |
 | --- | --- | --- |
-| `policy_search` | Retrieve ranked policy passages with citations | No |
-| `account_lookup` | Read plan and account status | No |
-| `create_ticket` | Propose or create a support ticket | Yes, after approval |
+| `policy_search` | Retrieves ranked support policies | No |
+| `account_lookup` | Reads the customer's plan and status | No |
+| `create_ticket` | Proposes a ticket and creates it after approval | Yes |
 
-## Run it
+Keeping the tool list small makes the permissions easy to understand. Only one tool can modify a
+record, and that tool has an approval boundary.
 
-Requirements: Docker and Docker Compose.
+## Evaluation
 
-```bash
-docker compose up --build -d
-curl http://localhost:8000/health
-```
+The evaluation set contains 100 requests across four areas: billing, account access, subscriptions,
+and privacy. Twenty requests ask for escalation.
 
-The container applies the database migration and loads idempotent sample data at startup. OpenAPI
-documentation is available at [http://localhost:8000/docs](http://localhost:8000/docs).
-
-## Use the web app
-
-Open [http://localhost:8000](http://localhost:8000) after the containers are running. The web
-workspace lets you complete the full demo without entering API commands:
-
-- select one of the seeded customer accounts;
-- ask policy questions and inspect the source used for each answer;
-- approve or reject proposed ticket creation;
-- view the selected account's recent tickets;
-- review benchmark results on the Evaluation screen; and
-- inspect live dependencies and the three-tool workflow on the System screen.
-
-Swagger at `/docs` remains available for backend development, but it is not the product interface.
-
-Ask a policy question:
-
-```bash
-curl -s http://localhost:8000/v1/support/messages \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "account_id": "acct_1001",
-    "message": "Can I get a refund for a purchase from last week?"
-  }'
-```
-
-Request an escalation:
-
-```bash
-curl -s http://localhost:8000/v1/support/messages \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "account_id": "acct_1001",
-    "message": "I was charged twice. Please create a ticket for a human agent."
-  }'
-```
-
-The second response contains `proposed_action.id`. Nothing has been inserted into `tickets` yet.
-Approve it explicitly:
-
-```bash
-curl -s -X POST http://localhost:8000/v1/approvals/ACTION_ID/approve
-```
-
-An approval is valid for 15 minutes and can be used once. It can also be rejected with
-`POST /v1/approvals/ACTION_ID/reject`.
-
-## Benchmark
-
-The checked-in dataset contains 100 requests. With the stack running:
-
-```bash
-python -m eval.run \
-  --base-url http://localhost:8000 \
-  --dataset eval/cases.jsonl
-```
-
-The report includes task completion, citation correctness and precision, tool failures, mean/p50/p95
-latency, and estimated cost per request. Results are written to
-`benchmark-results/latest.json`.
-
-The checked-in local baseline in `eval/baseline.json` was produced with concurrency 10:
+The saved local run produced:
 
 | Metric | Result |
 | --- | ---: |
@@ -92,34 +41,61 @@ The checked-in local baseline in `eval/baseline.json` was produced with concurre
 | Citation correctness | 100% |
 | Citation precision | 100% |
 | Tool failures | 0 |
-| Client latency p50 / p95 | 38.36 ms / 255.98 ms |
-| Estimated model cost per request | $0.00 |
+| Client latency p50 | 38.36 ms |
+| Client latency p95 | 255.98 ms |
+| Model cost per request | $0.00 |
 
-This is a deterministic, labeled development set, not a production claim. A production evaluation
-should include paraphrases, stale policies, adversarial requests, and injected dependency failures.
+These numbers come from a fixed development set, so they should not be treated as production
+performance. The benchmark is mainly there to catch regressions in routing, citations, tool calls,
+and approval behavior.
+
+To run it again:
+
+```bash
+python -m eval.run
+```
+
+The full result is written to `benchmark-results/latest.json`. The checked-in summary is in
+`eval/baseline.json`.
 
 ## Tests
 
+Build and run the isolated test image:
+
 ```bash
-python -m pip install -r requirements-dev.txt
-pytest -q
-ruff check .
+make test
+make lint
 ```
 
-The most important test proves that a ticket is not written when it is proposed, that approval
-creates it once, and that replaying the same approval fails.
+The approval tests verify that proposing a ticket does not write to PostgreSQL, approval creates one
+ticket, and trying to reuse the same approval fails.
 
-## Project layout
+## Project structure
 
 ```text
-app/                  API, orchestration, repositories, and tools
-migrations/           PostgreSQL schema and full-text GIN index
-scripts/seed.py       Idempotent accounts and support policies
-eval/cases.jsonl      Fixed 100-request evaluation set
-eval/run.py           Concurrent benchmark runner
-tests/                Agent, retrieval, approval, and metric tests
-docs/                 Design notes and interview walkthrough
+app/
+  static/              Web interface
+  agent.py             Request routing and response composition
+  tools.py             The three tool implementations
+  repositories.py      Database queries
+  approvals.py         Redis approval storage
+  main.py              FastAPI routes
+migrations/            Database migration
+scripts/seed.py        Sample accounts and policy data
+eval/                   Dataset, runner, and saved baseline
+tests/                  Unit tests
+docs/                   Design notes and interview guide
 ```
 
-See [docs/design.md](docs/design.md) for the request path and failure behavior, and
-[docs/interview-guide.md](docs/interview-guide.md) for a concise explanation and demo script.
+More detail is available in [docs/design.md](docs/design.md). For a short project explanation and
+demo order, see [docs/interview-guide.md](docs/interview-guide.md).
+
+## Current limitations
+
+- The sample accounts are not protected by authentication.
+- Policy retrieval is full-text search rather than embedding-based hybrid search.
+- Approval decisions are temporary Redis records, not a permanent audit log.
+- The benchmark uses a controlled development set.
+
+For a production version, I would add authentication and tenant checks first, followed by a durable
+approval audit table, rate limiting, and a larger evaluation set built from real support traffic.
