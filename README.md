@@ -81,8 +81,7 @@ tests/                  Unit tests
 docs/                   Design notes and interview guide
 ```
 
-More detail is available in [docs/design.md](docs/design.md). For a short project explanation and
-demo order, see [docs/interview-guide.md](docs/interview-guide.md).
+More detail is available in [docs/design.md](docs/design.md).
 
 ## Current limitations
 
