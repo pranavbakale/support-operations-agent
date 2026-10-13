@@ -1,9 +1,3 @@
-The other screens are useful when presenting the project:
-
-- **Evaluation** shows the saved benchmark results.
-- **System** shows the request path, the three tools, and the live PostgreSQL and Redis status.
-- **API documentation** opens Swagger for testing individual endpoints.
-
 ## How a request is handled
 
 1. `account_lookup` checks the customer account and returns the plan and account status.
